@@ -635,8 +635,7 @@ func (c *StructFieldCode) getAnonymousStruct() *StructCode {
 
 func optimizeStructHeader(code *Opcode, tag *runtime.StructTag) OpType {
 	headType := code.ToHeaderType(tag.IsString)
-	ingoreOmitEmpty := code.Flags&OpFlags(IngoreOmitEmpty) != 0
-	if tag.IsOmitEmpty && !ingoreOmitEmpty {
+	if tag.IsOmitEmpty {
 		headType = headType.HeadToOmitEmptyHead()
 	}
 	return headType
@@ -644,8 +643,7 @@ func optimizeStructHeader(code *Opcode, tag *runtime.StructTag) OpType {
 
 func optimizeStructField(code *Opcode, tag *runtime.StructTag) OpType {
 	fieldType := code.ToFieldType(tag.IsString)
-	ingoreOmitEmpty := code.Flags&OpFlags(IngoreOmitEmpty) != 0
-	if tag.IsOmitEmpty && !ingoreOmitEmpty {
+	if tag.IsOmitEmpty {
 		fieldType = fieldType.FieldToOmitEmptyField()
 	}
 	return fieldType
@@ -653,6 +651,7 @@ func optimizeStructField(code *Opcode, tag *runtime.StructTag) OpType {
 
 func (c *StructFieldCode) headerOpcodes(ctx *compileContext, field *Opcode, valueCodes Opcodes) Opcodes {
 	value := valueCodes.First()
+
 	op := optimizeStructHeader(value, c.tag)
 	field.Op = op
 	if value.Flags&MarshalerContextFlags != 0 {

@@ -31,13 +31,6 @@ func NilMapAsEmpty() EncodeOptionFunc {
 	}
 }
 
-// IngoreOmitEmpty ignore omit empty tag
-func IngoreOmitEmpty() EncodeOptionFunc {
-	return func(opt *EncodeOption) {
-		opt.Flag |= encoder.IngoreOmitEmpty
-	}
-}
-
 // DisableHTMLEscape disables escaping of HTML characters ( '&', '<', '>' ) when encoding string.
 func DisableHTMLEscape() EncodeOptionFunc {
 	return func(opt *EncodeOption) {
