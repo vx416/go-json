@@ -17,6 +17,8 @@ const (
 	ContextOption
 	NormalizeUTF8Option
 	FieldQueryOption
+	NilMapAsEmptyOption
+	IngoreOmitEmpty
 )
 
 type Option struct {

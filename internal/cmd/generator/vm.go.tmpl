@@ -393,18 +393,28 @@ func Run(ctx *encoder.RuntimeContext, b []byte, codeSet *encoder.OpcodeSet) ([]b
 				code = code.End.Next
 			}
 		case encoder.OpMapPtr:
+			nilMapAsEmpty := ctx.Option.Flag & encoder.NilMapAsEmptyOption != 0
 			p := loadNPtr(ctxptr, code.Idx, code.PtrNum)
 			if p == 0 {
-				b = appendNullComma(ctx, b)
+				if nilMapAsEmpty {
+					b = appendEmptyObject(ctx, b)
+				} else {
+					b = appendNullComma(ctx, b)
+				}
 				code = code.End.Next
 				break
 			}
 			store(ctxptr, code.Idx, p)
 			fallthrough
 		case encoder.OpMap:
+		    nilMapAsEmpty := ctx.Option.Flag & encoder.NilMapAsEmptyOption != 0
 			p := load(ctxptr, code.Idx)
 			if p == 0 {
-				b = appendNullComma(ctx, b)
+				if nilMapAsEmpty {
+					b = appendEmptyObject(ctx, b)
+				} else {
+					b = appendNullComma(ctx, b)
+				}
 				code = code.End.Next
 				break
 			}
