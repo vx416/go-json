@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"strconv"
 
-	"github.com/goccy/go-json/internal/errors"
-	"github.com/goccy/go-json/internal/runtime"
+	"github.com/vx416/go-json/internal/errors"
+	"github.com/vx416/go-json/internal/runtime"
 )
 
 type PathString string

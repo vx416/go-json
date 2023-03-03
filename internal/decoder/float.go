@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"unsafe"
 
-	"github.com/goccy/go-json/internal/errors"
+	"github.com/vx416/go-json/internal/errors"
 )
 
 type floatDecoder struct {
