@@ -6,10 +6,6 @@ import (
 	"unicode"
 )
 
-var (
-	DisableOmitEmpty = false
-)
-
 func getTag(field reflect.StructField) string {
 	return field.Tag.Get("json")
 }
@@ -85,11 +81,7 @@ func StructTagFromField(field reflect.StructField) *StructTag {
 		for _, opt := range opts[1:] {
 			switch opt {
 			case "omitempty":
-				if DisableOmitEmpty {
-					st.IsOmitEmpty = false
-				} else {
-					st.IsOmitEmpty = true
-				}
+				st.IsOmitEmpty = false
 			case "string":
 				st.IsString = true
 			}
